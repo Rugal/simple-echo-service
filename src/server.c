@@ -23,6 +23,19 @@ int main() {
   system.serverFileDescriptor = createFileDescriptor();
   system.serverSocket = createSocket(&system, &configuration);
 
+  struct sockaddr_in client;
+  int clientSize = sizeof(client);
+  int clientFileDescriptor = accept(system.serverFileDescriptor, (struct sockaddr *) &client, &clientSize);
+
+  if (clientFileDescriptor < 0)
+    LOG_ERROR("Fail to accept client connection");
+  char buffer[256];
+  bzero(buffer, 256);
+  int n = read(clientFileDescriptor, buffer, 255);
+  if (n < 0)
+    LOG_ERROR("ERROR reading from socket");
+  printf("Here is the message: %s\n",buffer);
+
   return 0;
 }
 

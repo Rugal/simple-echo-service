@@ -11,14 +11,12 @@ INCLUDE_DIRECTORIES(
 SET(SERVER
     ${SOURCE}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/server.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/test.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/socket.c
 )
 
 SET(CLIENT
     ${SOURCE}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/client.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/test.c
 )
 
 ADD_EXECUTABLE("server" ${SERVER})
