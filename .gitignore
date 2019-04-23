@@ -1,6 +1,5 @@
 *.swp
 *.o
-encrypt
 input
 output
 build

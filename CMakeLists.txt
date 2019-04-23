@@ -1,20 +1,27 @@
 #C
 cmake_minimum_required(VERSION 3.10.0)
-PROJECT(Rugal C)
+PROJECT(communication C)
 SET(CMAKE_C_FLAGS "-O0 -ggdb -w -std=c11")
 SET(CMAKE_C_COMPILER gcc)
-SET(BIN "BIN")
 
 INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/include
 )
 
-SET(SOURCE
+SET(SERVER
     ${SOURCE}
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/main.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/server.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/test.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/socket.c
+)
+
+SET(CLIENT
+    ${SOURCE}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/client.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/test.c
 )
 
-ADD_EXECUTABLE(${BIN} ${SOURCE})
-TARGET_LINK_LIBRARIES(${BIN})
+ADD_EXECUTABLE("server" ${SERVER})
+ADD_EXECUTABLE("client" ${CLIENT})
+#TARGET_LINK_LIBRARIES(${BIN})
 
