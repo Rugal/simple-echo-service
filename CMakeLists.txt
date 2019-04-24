@@ -17,6 +17,7 @@ SET(SERVER
 SET(CLIENT
     ${SOURCE}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/client.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/socket.c
 )
 
 ADD_EXECUTABLE("server" ${SERVER})

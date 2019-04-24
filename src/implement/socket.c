@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <netdb.h>
 #include <netinet/in.h>
 
 #include "Configuration.h"
@@ -42,5 +43,33 @@ struct sockaddr_in* createSocket(const System *system, const Configuration* conf
   }
     LOG_INFO("Server start");
   return socket;
+}
+
+struct sockaddr_in* connectServer(const System *system, Configuration* configuration) {
+  assert(configuration != NULL);
+  LOG_DEBUG("Try to resolve host [%s]", configuration->hostname);
+  struct hostent *server = gethostbyname(configuration->hostname);
+  if (server == NULL) {
+    LOG_ERROR("Fail to get host by server name");
+    exit(0);
+  }
+
+  LOG_DEBUG("Create socket");
+  struct sockaddr_in* serverAddress = malloc(sizeof(struct sockaddr_in));
+  bzero(serverAddress, sizeof(struct sockaddr_in));
+
+  LOG_DEBUG("Setup connection parameter");
+  serverAddress->sin_family = AF_INET;
+  serverAddress->sin_addr = *((struct in_addr *)server->h_addr);
+  serverAddress->sin_port = htons(configuration->port);
+
+  LOG_DEBUG("Connect to server");
+  if (connect(system->clientFileDescriptor,
+              (struct sockaddr *)serverAddress,
+              sizeof(struct sockaddr)) < 0) {
+    LOG_ERROR("Fail to connect to server");
+    exit(1);
+  }
+  return serverAddress;
 }
 

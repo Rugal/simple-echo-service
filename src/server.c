@@ -23,8 +23,11 @@ int main() {
   system.serverFileDescriptor = createFileDescriptor();
   system.serverSocket = createSocket(&system, &configuration);
 
+
+  //service section begin
   struct sockaddr_in client;
   int clientSize = sizeof(client);
+  //start listening
   int clientFileDescriptor = accept(system.serverFileDescriptor, (struct sockaddr *) &client, &clientSize);
 
   if (clientFileDescriptor < 0)
