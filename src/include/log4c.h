@@ -28,7 +28,7 @@ extern int log4c_level;
 
 #define LOG(level, fmt, ...) \
   if (level >= log4c_level) { \
-    fprintf(stderr, \
+    fprintf(level >= LOG4C_ERROR ? stderr : stdout, \
             "[%5s] %s @ %-15s#%4d: " fmt "\n", \
             LOG_NAME[level], \
             __func__, \
