@@ -7,9 +7,12 @@
 #include <unistd.h>
 
 #include "Configuration.h"
+#include "StringUtility.h"
 #include "System.h"
 #include "log4c.h"
 #include "socket.h"
+
+#define BUFFER_SIZE 1024
 
 //Set overall log level
 int log4c_level = LOG4C_ALL;
@@ -36,7 +39,7 @@ int main(int argc, char **argv) {
         LOG_DEBUG("Set server port to [%d]", configuration.port);
         break;
       case '?':
-        printf("unknown option: %c\n", optopt);
+        LOG_INFO("unknown option: [%c]", optopt);
         break;
     }
   }
@@ -49,16 +52,20 @@ int main(int argc, char **argv) {
   struct sockaddr_in client;
   int clientSize = sizeof(client);
   //start listening
-  int clientFileDescriptor = accept(system.serverFileDescriptor, (struct sockaddr *) &client, &clientSize);
-
-  if (clientFileDescriptor < 0)
-    LOG_ERROR("Fail to accept client connection");
-  char buffer[256];
-  bzero(buffer, 256);
-  int n = read(clientFileDescriptor, buffer, 255);
-  if (n < 0)
-    LOG_ERROR("ERROR reading from socket");
-  printf("Here is the message: %s\n",buffer);
+  for(int clientFileDescriptor;
+      (clientFileDescriptor = accept(system.serverFileDescriptor,
+                                     (struct sockaddr *) &client,
+                                     &clientSize)) >= 0;) {
+    LOG_INFO("Get connection with file descriptor [%d]", clientFileDescriptor);
+    char buffer[BUFFER_SIZE];
+    bzero(buffer, BUFFER_SIZE);
+    if (read(clientFileDescriptor, buffer, BUFFER_SIZE - 1) < 0) {
+      LOG_ERROR("ERROR reading from socket");
+    } else {
+      LOG_INFO("Here is the message: [%s]", trim(buffer));
+    }
+  }
+  LOG_ERROR("Fail to accept client connection");
 
   return 0;
 }

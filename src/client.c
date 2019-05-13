@@ -11,6 +11,8 @@
 #include "log4c.h"
 #include "socket.h"
 
+#define BUFFER_SIZE 1024
+
 //Set overall log level
 int log4c_level = LOG4C_ALL;
 
@@ -35,7 +37,7 @@ int main(int argc, char **argv) {
         LOG_DEBUG("Set server port to [%d]", configuration.port);
         break;
       case '?':
-        printf("unknown option: %c\n", optopt);
+        LOG_INFO("unknown option: [%c]", optopt);
         break;
     }
   }
@@ -44,13 +46,15 @@ int main(int argc, char **argv) {
   system.clientFileDescriptor = createFileDescriptor();
   system.clientSocket = connectServer(&system, &configuration);
 
-  printf("Please enter the message: ");
-  char buffer[256];
-  bzero(buffer,256);
-  fgets(buffer,255,stdin);
+  /*printf("Please enter the message: ");*/
+  LOG_INFO("Please enter the message: ");
+  char buffer[BUFFER_SIZE];
+  bzero(buffer, BUFFER_SIZE);
+  fgets(buffer, BUFFER_SIZE - 1, stdin);
   int n = write(system.clientFileDescriptor,buffer,strlen(buffer));
   if (n < 0)
     LOG_ERROR("Fail to write to server");
 
   return 0;
 }
+
