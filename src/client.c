@@ -17,41 +17,14 @@
 int log4c_level = LOG4C_ALL;
 
 int main(int argc, char **argv) {
-  Configuration configuration;
-  configuration.port = 8080;
-  strcpy(configuration.hostname, "localhost");
+  Configuration *configuration = parseConfiguration(argc, argv);
+  System *system = createClient(configuration);
 
-  for (int opt; (opt = getopt(argc, argv, "h:p:q:")) != -1;) {
-    LOG_TRACE("Process option [%c]", opt);
-    switch(opt) {
-      case 'q':
-        configuration.queueLength = atoi(optarg);
-        LOG_DEBUG("Set connection queue length to [%d]", configuration.queueLength);
-        break;
-      case 'h':
-        strcpy(configuration.hostname, optarg);
-        LOG_DEBUG("Set server host to [%s]", configuration.hostname);
-        break;
-      case 'p':
-        configuration.port = atoi(optarg);
-        LOG_DEBUG("Set server port to [%d]", configuration.port);
-        break;
-      case '?':
-        LOG_INFO("unknown option: [%c]", optopt);
-        break;
-    }
-  }
-
-  System system;
-  system.clientFileDescriptor = createFileDescriptor();
-  system.clientSocket = connectServer(&system, &configuration);
-
-  /*printf("Please enter the message: ");*/
   LOG_INFO("Please enter the message: ");
   char buffer[BUFFER_SIZE];
   bzero(buffer, BUFFER_SIZE);
   fgets(buffer, BUFFER_SIZE - 1, stdin);
-  int n = write(system.clientFileDescriptor,buffer,strlen(buffer));
+  int n = write(system->clientFileDescriptor,buffer,strlen(buffer));
   if (n < 0)
     LOG_ERROR("Fail to write to server");
 

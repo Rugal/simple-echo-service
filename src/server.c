@@ -18,42 +18,17 @@
 int log4c_level = LOG4C_ALL;
 
 int main(int argc, char **argv) {
-  Configuration configuration;
-  configuration.port = 8080;
-  configuration.queueLength = 5;
-  strcpy(configuration.hostname, "localhost");
-
-  for (int opt; (opt = getopt(argc, argv, "h:p:q:")) != -1;) {
-    LOG_TRACE("Process option [%c]", opt);
-    switch(opt) {
-      case 'q':
-        configuration.queueLength = atoi(optarg);
-        LOG_DEBUG("Set connection queue length to [%d]", configuration.queueLength);
-        break;
-      case 'h':
-        strcpy(configuration.hostname, optarg);
-        LOG_DEBUG("Set server host to [%s]", configuration.hostname);
-        break;
-      case 'p':
-        configuration.port = atoi(optarg);
-        LOG_DEBUG("Set server port to [%d]", configuration.port);
-        break;
-      case '?':
-        LOG_INFO("unknown option: [%c]", optopt);
-        break;
-    }
-  }
-
-  System system;
-  system.serverFileDescriptor = createFileDescriptor();
-  system.serverSocket = createSocket(&system, &configuration);
+  //TODO: need to destroy these object in the end
+  Configuration* configuration = parseConfiguration(argc, argv);
+  System *system = createServer(configuration);
 
   //service section begin
   struct sockaddr_in client;
   int clientSize = sizeof(client);
   //start listening
+  LOG_INFO("Start accepting inbound request");
   for(int clientFileDescriptor;
-      (clientFileDescriptor = accept(system.serverFileDescriptor,
+      (clientFileDescriptor = accept(system->serverFileDescriptor,
                                      (struct sockaddr *) &client,
                                      &clientSize)) >= 0;) {
     LOG_INFO("Get connection with file descriptor [%d]", clientFileDescriptor);
@@ -69,4 +44,3 @@ int main(int argc, char **argv) {
 
   return 0;
 }
-
