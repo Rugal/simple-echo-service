@@ -28,5 +28,8 @@ int main(int argc, char **argv) {
   if (n < 0)
     LOG_ERROR("Fail to write to server");
 
+  freeConfiguration(configuration);
+  freeSystem(system);
+
   return 0;
 }

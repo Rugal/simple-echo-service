@@ -17,4 +17,9 @@ typedef struct Configuration {
  */
 Configuration* parseConfiguration(int argc, char **argv);
 
+/**
+ * Free configuration memory.
+ */
+void freeConfiguration(Configuration* c);
+
 #endif CONFIGURATIONH

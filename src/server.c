@@ -18,7 +18,6 @@
 int log4c_level = LOG4C_ALL;
 
 int main(int argc, char **argv) {
-  //TODO: need to destroy these object in the end
   Configuration* configuration = parseConfiguration(argc, argv);
   System *system = createServer(configuration);
 
@@ -42,5 +41,7 @@ int main(int argc, char **argv) {
   }
   LOG_ERROR("Fail to accept client connection");
 
+  freeConfiguration(configuration);
+  freeSystem(system);
   return 0;
 }

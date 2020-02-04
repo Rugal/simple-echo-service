@@ -22,14 +22,4 @@ struct sockaddr_in* createServerSocket(const System*, const Configuration*);
  */
 struct sockaddr_in* connectServer(const System*, Configuration*) ;
 
-/**
- * Create and setup server System object with provided configuration.
- */
-System* createServer(Configuration*);
-
-/**
- * Create and setup client System object with provided configuration.
- */
-System* createClient(Configuration* configuration);
-
 #endif SOCKETH

@@ -3,6 +3,7 @@
   "files.associations": {
     "socket.h": "c",
     "system.h": "c",
-    "configuration.h": "c"
+    "configuration.h": "c",
+    "log4c.h": "c"
   }
 }

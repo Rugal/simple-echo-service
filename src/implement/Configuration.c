@@ -37,3 +37,8 @@ Configuration* parseConfiguration(int argc, char **argv) {
   }
   return c;
 }
+
+void freeConfiguration(Configuration* c) {
+  assert(c != NULL);
+  free(c);
+}
