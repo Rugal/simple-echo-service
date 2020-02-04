@@ -33,4 +33,3 @@ System* createServer(Configuration*);
 System* createClient(Configuration* configuration);
 
 #endif SOCKETH
-

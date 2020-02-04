@@ -8,4 +8,3 @@ char *rtrim(char *str);
 char *trim(char *str);
 
 #endif STRINGUTILITYH
-

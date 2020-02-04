@@ -45,4 +45,3 @@ extern int log4c_level;
 #define LOG_ERROR(fmt, ...) LOG(LOG4C_ERROR, fmt, ##__VA_ARGS__)
 
 #endif
-

@@ -31,4 +31,3 @@ char *rtrim(char *str) {
 char *trim(char *str) {
   return ltrim(rtrim(str));
 }
-

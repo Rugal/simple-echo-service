@@ -18,4 +18,3 @@ typedef struct Configuration {
 Configuration* parseConfiguration(int argc, char **argv);
 
 #endif CONFIGURATIONH
-
