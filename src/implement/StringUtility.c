@@ -1,4 +1,5 @@
 #include <string.h>
+
 #include "StringUtility.h"
 
 static char seps[] = {'\t', '\n', '\v', '\f', '\r', ' ', '\0'};

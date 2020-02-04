@@ -12,5 +12,10 @@ typedef struct Configuration {
   char hostname[HOST_NAME_LENGTH];
 } Configuration;
 
+/**
+ * Read and parse input as configuration.
+ */
+Configuration* parseConfiguration(int argc, char **argv);
+
 #endif CONFIGURATIONH
 

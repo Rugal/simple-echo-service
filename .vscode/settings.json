@@ -1,6 +1,8 @@
 {
   "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
   "files.associations": {
-    "socket.h": "c"
+    "socket.h": "c",
+    "system.h": "c",
+    "configuration.h": "c"
   }
 }

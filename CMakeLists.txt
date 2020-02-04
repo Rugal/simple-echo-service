@@ -13,6 +13,8 @@ SET(SERVER
     ${CMAKE_CURRENT_SOURCE_DIR}/src/server.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/socket.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/StringUtility.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/Configuration.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/System.c
 )
 
 SET(CLIENT
@@ -20,6 +22,8 @@ SET(CLIENT
     ${CMAKE_CURRENT_SOURCE_DIR}/src/client.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/socket.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/StringUtility.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/Configuration.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/System.c
 )
 
 ADD_EXECUTABLE("server" ${SERVER})

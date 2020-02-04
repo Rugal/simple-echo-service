@@ -10,7 +10,7 @@
 #include "StringUtility.h"
 #include "System.h"
 #include "log4c.h"
-#include "socket.h"
+#include "Socket.h"
 
 #define BUFFER_SIZE 1024
 

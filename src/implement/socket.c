@@ -10,7 +10,7 @@
 #include "Configuration.h"
 #include "System.h"
 #include "log4c.h"
-#include "socket.h"
+#include "Socket.h"
 
 int createSocketFileDescriptor() {
   const int fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -22,7 +22,7 @@ int createSocketFileDescriptor() {
   return fd;
 }
 
-struct sockaddr_in* createSocket(const System *system, const Configuration* configuration) {
+struct sockaddr_in* createServerSocket(const System *system, const Configuration* configuration) {
   assert(configuration != NULL);
   assert(system != NULL);
   struct sockaddr_in* socket = malloc(sizeof(struct sockaddr_in));
@@ -72,51 +72,4 @@ struct sockaddr_in* connectServer(const System *system, Configuration* configura
   }
   LOG_DEBUG("Connected to server [%s]:[%d]", configuration->hostname, configuration->port);
   return serverAddress;
-}
-
-System* createServer(Configuration* configuration) {
-  System *system = malloc(sizeof(System));
-  bzero((char *) system, sizeof(System));
-  system->serverFileDescriptor = createSocketFileDescriptor();
-  system->serverSocket = createSocket(system, configuration);
-  return system;
-}
-
-System* createClient(Configuration* configuration) {
-  System *system = malloc(sizeof(System));
-  bzero((char *) system, sizeof(System));
-  system->clientFileDescriptor = createSocketFileDescriptor();
-  system->clientSocket = connectServer(system, configuration);
-  return system;
-}
-
-Configuration* parseConfiguration(int argc, char **argv) {
-  Configuration *c = malloc(sizeof(Configuration));
-  bzero((char *) c, sizeof(Configuration));
-  // set default value
-  c->port = 8080;
-  c->queueLength = 5;
-  strcpy(c->hostname, "localhost");
-  // parse input parameter and override
-  for (int opt; (opt = getopt(argc, argv, "h:p:q:")) != -1;) {
-    LOG_TRACE("Process option [%c]", opt);
-    switch(opt) {
-      case 'q':
-        c->queueLength = atoi(optarg);
-        LOG_DEBUG("Set connection queue length to [%d]", c->queueLength);
-        break;
-      case 'h':
-        strcpy(c->hostname, optarg);
-        LOG_DEBUG("Set server host to [%s]", c->hostname);
-        break;
-      case 'p':
-        c->port = atoi(optarg);
-        LOG_DEBUG("Set server port to [%d]", c->port);
-        break;
-      case '?':
-        LOG_INFO("unknown option: [%c]", optopt);
-        break;
-    }
-  }
-  return c;
 }
