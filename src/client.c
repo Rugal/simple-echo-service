@@ -11,8 +11,6 @@
 #include "log4c.h"
 #include "Socket.h"
 
-#define BUFFER_SIZE 1024
-
 //Set overall log level
 int log4c_level = LOG4C_ALL;
 

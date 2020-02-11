@@ -6,6 +6,8 @@
 #include "Configuration.h"
 #include "System.h"
 
+#define BUFFER_SIZE 1024
+
 /**
  * System runtime parameter.
  */
