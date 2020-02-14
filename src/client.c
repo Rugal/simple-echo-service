@@ -10,21 +10,29 @@
 #include "System.h"
 #include "log4c.h"
 #include "Socket.h"
+#include "StringUtility.h"
 
 //Set overall log level
 int log4c_level = LOG4C_ALL;
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   Configuration *configuration = parseConfiguration(argc, argv);
   System *system = createClient(configuration);
 
-  LOG_INFO("Please enter the message: ");
   char buffer[BUFFER_SIZE];
   bzero(buffer, BUFFER_SIZE);
-  fgets(buffer, BUFFER_SIZE - 1, stdin);
-  int n = write(system->clientFileDescriptor,buffer,strlen(buffer));
-  if (n < 0)
-    LOG_ERROR("Fail to write to server");
+  LOG_INFO("Please enter the message: ");
+  for (fgets(buffer, BUFFER_SIZE - 1, stdin);
+       strcmp(trim(buffer), "exit") != 0;
+       fgets(buffer, BUFFER_SIZE - 1, stdin))
+  {
+    const int n = write(system->clientFileDescriptor, buffer, strlen(buffer));
+    if (n < 0)
+      LOG_ERROR("Fail to write to server");
+    bzero(buffer, BUFFER_SIZE);
+    LOG_INFO("Please enter the message: ");
+  }
 
   freeConfiguration(configuration);
   freeSystem(system);

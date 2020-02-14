@@ -15,6 +15,7 @@ SET(SERVER
     ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/StringUtility.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/Configuration.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/System.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/ArrayList.c
 )
 
 SET(CLIENT
@@ -24,9 +25,9 @@ SET(CLIENT
     ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/StringUtility.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/Configuration.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/System.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/ArrayList.c
 )
 
 ADD_EXECUTABLE("server" ${SERVER})
 ADD_EXECUTABLE("client" ${CLIENT})
 #TARGET_LINK_LIBRARIES(${BIN})
-
