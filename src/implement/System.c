@@ -12,6 +12,7 @@ System* createServer(Configuration* configuration) {
   bzero((char *) system, sizeof(System));
   system->serverFileDescriptor = createSocketFileDescriptor();
   system->serverSocket = createServerSocket(system, configuration);
+  system->configuration = configuration;
   return system;
 }
 
@@ -20,18 +21,34 @@ System* createClient(Configuration* configuration) {
   bzero((char *) system, sizeof(System));
   system->clientFileDescriptor = createSocketFileDescriptor();
   system->clientSocket = connectServer(system, configuration);
+  system->configuration = configuration;
   return system;
 }
 
 void freeSystem(System* s) {
   assert(s != NULL);
-  if(s->clientFileDescriptor)
-    shutdown(s->clientFileDescriptor, 1);
-  if(s->serverFileDescriptor)
-    shutdown(s->serverFileDescriptor, 0);
-  if(s->clientSocket)
+  if(s->clientFileDescriptor) {
+    LOG_TRACE("shutdown client FD");
+    // shutdown(s->clientFileDescriptor, 1);
+    close(s->clientFileDescriptor);
+  }
+  if(s->serverFileDescriptor) {
+    LOG_TRACE("Shutdown server FD");
+    // shutdown(s->serverFileDescriptor, 0);
+    close(s->serverFileDescriptor);
+  }
+  if(s->clientSocket) {
+    LOG_TRACE("Free client socket");
     free(s->clientSocket);
-  if(s->serverSocket)
+  }
+  if(s->serverSocket) {
+    LOG_TRACE("Free server socket");
     free(s->serverSocket);
+  }
+  if(s->configuration) {
+    LOG_TRACE("Free system configuration");
+    freeConfiguration(s->configuration);
+  }
+  LOG_TRACE("Free system object");
   free(s);
 }

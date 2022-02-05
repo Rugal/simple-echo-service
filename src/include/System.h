@@ -16,6 +16,7 @@ typedef struct System {
   int clientFileDescriptor;
   struct sockaddr_in* serverSocket;
   struct sockaddr_in* clientSocket;
+  Configuration* configuration;
 } System;
 
 /**

@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 
   char buffer[BUFFER_SIZE];
   bzero(buffer, BUFFER_SIZE);
-  LOG_INFO("Please enter the message: ");
+  LOG_INFO("Please enter the message: <exit>");
   for (fgets(buffer, BUFFER_SIZE - 1, stdin);
        strcmp(trim(buffer), "exit") != 0;
        fgets(buffer, BUFFER_SIZE - 1, stdin))
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     LOG_INFO("Please enter the message: ");
   }
 
-  freeConfiguration(configuration);
+  // freeConfiguration(configuration);
   freeSystem(system);
 
   return 0;

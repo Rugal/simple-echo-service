@@ -40,5 +40,6 @@ Configuration* parseConfiguration(int argc, char **argv) {
 
 void freeConfiguration(Configuration* c) {
   assert(c != NULL);
+  LOG_TRACE("Free configuration object");
   free(c);
 }
