@@ -8,34 +8,30 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/include
 )
 
+SET(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/implement)
+
+SET(SOURCE
+    ${SOURCE_DIR}/socket.c
+    ${SOURCE_DIR}/StringUtility.c
+    ${SOURCE_DIR}/Configuration.c
+    ${SOURCE_DIR}/System.c
+    ${SOURCE_DIR}/ArrayList.c
+    ${SOURCE_DIR}/Asynchronization.c
+)
+
 SET(SERVER
-    ${SOURCE}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/server.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/socket.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/StringUtility.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/Configuration.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/System.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/ArrayList.c
+    ${SOURCE}
 )
 
 SET(ASYNC
-    ${SOURCE}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/async.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/socket.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/StringUtility.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/Configuration.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/System.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/ArrayList.c
+    ${SOURCE}
 )
 
 SET(CLIENT
-    ${SOURCE}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/client.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/socket.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/StringUtility.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/Configuration.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/System.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/implement/ArrayList.c
+    ${SOURCE}
 )
 
 ADD_EXECUTABLE("server" ${SERVER})
