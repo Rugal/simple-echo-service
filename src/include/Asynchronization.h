@@ -19,11 +19,11 @@ typedef struct {
 FileDescriptorPool* createFileDescriptorPool(int capacity);
 
 /**
- * @brief Delete File Descriptor Pool object safely
+ * @brief Free File Descriptor Pool object safely
  * 
  * @param pool the pool object that is not nullable
  */
-void deleteFileDescriptorPool(FileDescriptorPool* pool);
+void freeFileDescriptorPool(FileDescriptorPool* pool);
 
 /**
  * @brief Add new FileDescriptor into the pool

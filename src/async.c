@@ -89,6 +89,7 @@ int main(int argc, char** argv)
   freeArrayList(list);
   freeConfiguration(configuration);
   freeSystem(system);
+  freeFileDescriptorPool(pool);
 
   LOG_ERROR("Fail to poll client connection [%d]", errno);
   return 1;

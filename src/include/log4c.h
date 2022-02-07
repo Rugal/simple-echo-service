@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "Color.h"
+
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
 enum Log4CLevel {
@@ -29,11 +31,15 @@ extern int log4c_level;
 #define LOG(level, fmt, ...) \
   if (level >= log4c_level) { \
     fprintf(level >= LOG4C_ERROR ? stderr : stdout, \
-            "[%5s] %20s @ %-12s#%3d: " fmt "\n", \
+            "[%s%5s%s]" " %30s @ %20s#%s%3d%s: " fmt "\n", \
+            COLOR_RED_FG, \
             LOG_NAME[level], \
+            COLOR_RESET, \
             __func__, \
             __FILENAME__, \
+            COLOR_GREEN_FG, \
             __LINE__, \
+            COLOR_RESET, \
             ##__VA_ARGS__); \
   }
 

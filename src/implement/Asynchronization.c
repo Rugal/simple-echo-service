@@ -20,7 +20,7 @@ FileDescriptorPool* createFileDescriptorPool(int capacity)
   return pool;
 }
 
-void deleteFileDescriptorPool(FileDescriptorPool* pool)
+void freeFileDescriptorPool(FileDescriptorPool* pool)
 {
   assert(NULL != pool);
   assert(NULL != pool->fds);
@@ -33,7 +33,9 @@ struct pollfd* addToPool(FileDescriptorPool* pool, int fd)
 {
   assert(NULL != pool);
   if (pool->size >= pool->capacity) {
-    // TODO: need to extend
+    pool->capacity *= 2;
+    LOG_TRACE("Extend capacity to [%d]", pool->capacity);
+    pool->fds = realloc(pool->fds, pool->capacity * sizeof(struct pollfd));
   }
   // if enough size
   LOG_DEBUG("Add new FD into pool [%d]", fd);
