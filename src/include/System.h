@@ -27,7 +27,7 @@ System* createServer(Configuration*);
 /**
  * Create and setup client System object with provided configuration.
  */
-System* createClient(Configuration* configuration);
+System* createClient(Configuration*);
 
 /**
  * Free system memory and release relevant resource.

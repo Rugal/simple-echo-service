@@ -13,7 +13,7 @@ Configuration* parseConfiguration(int argc, char **argv) {
   // set default value
   c->port = 8080;
   c->queueLength = 5;
-  strcpy(c->hostname, "localhost");
+  strcpy(c->hostname, "127.0.0.1");
   // parse input parameter and override
   for (int opt; (opt = getopt(argc, argv, "h:p:q:")) != -1;) {
     LOG_TRACE("Process option [%c]", opt);

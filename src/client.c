@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     LOG_INFO("Please enter the message: ");
   }
 
-  // freeConfiguration(configuration);
+  freeConfiguration(configuration);
   freeSystem(system);
 
   return 0;

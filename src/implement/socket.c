@@ -26,7 +26,7 @@ struct sockaddr_in* createServerSocket(const System *system, const Configuration
   assert(configuration != NULL);
   assert(system != NULL);
   struct sockaddr_in* socket = malloc(sizeof(struct sockaddr_in));
-  LOG_DEBUG("Memory allocate for socket");
+  LOG_TRACE("Memory allocate for socket");
   bzero((char *) socket, sizeof(socket));
   socket->sin_family = AF_INET;
   socket->sin_addr.s_addr = INADDR_ANY;
@@ -54,16 +54,16 @@ struct sockaddr_in* connectServer(const System *system, Configuration* configura
     exit(1);
   }
 
-  LOG_DEBUG("Create client socket");
+  LOG_TRACE("Create client socket");
   struct sockaddr_in* serverAddress = malloc(sizeof(struct sockaddr_in));
   bzero(serverAddress, sizeof(struct sockaddr_in));
 
-  LOG_DEBUG("Setup connection parameter");
+  LOG_TRACE("Setup connection parameter");
   serverAddress->sin_family = AF_INET;
   serverAddress->sin_addr = *((struct in_addr *)server->h_addr);
   serverAddress->sin_port = htons(configuration->port);
 
-  LOG_DEBUG("Try to connect to server");
+  LOG_TRACE("Try to connect to server");
   if (connect(system->clientFileDescriptor,
               (struct sockaddr *)serverAddress,
               sizeof(struct sockaddr)) < 0) {

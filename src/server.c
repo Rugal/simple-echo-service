@@ -33,7 +33,8 @@ void clientHandler(void *input)
     LOG_INFO("[%d]: [%s]", data->fd, trim(buffer));
     sleep(1);
   }
-  LOG_INFO("[%d]: disconnect", data->fd);
+  LOG_INFO("[%d]: disconnect and handling thread exit", data->fd);
+  pthread_exit(0);
 }
 
 /**
