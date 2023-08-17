@@ -28,8 +28,12 @@ const Color BOLD = { "\e[1m", "\e[0m" };
 #define COLOR_GREEN_FG "\033[0;32m"
 #define COLOR_GREEN_BG "\033[0;42m"
 
+#define COLOR_BLUE_FG "\033[0;34m"
+#define COLOR_YELLOW_FG "\033[0;33m"
+#define COLOR_WHITE_FG "\033[0;37m"
+
 #define COLOR_RED_FG "\033[0;31m"
-#define COLOR_GREEN_BG "\033[0;41m"
+#define COLOR_RED_BG "\033[0;41m"
 
 #define COLOR_RESET "\033[0m"
 

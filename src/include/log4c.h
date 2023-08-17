@@ -26,13 +26,24 @@ static const char* LOG_NAME[] = {"ALL",
                                  "ERROR",
                                  "OFF"};
 
+static const char* LOG_COLOR[] = {COLOR_BLUE_FG,
+                                  COLOR_BLUE_FG,
+                                  COLOR_GREEN_FG,
+                                  COLOR_WHITE_FG,
+                                  COLOR_YELLOW_FG,
+                                  COLOR_RED_FG,
+                                  COLOR_WHITE_FG};
+
 extern int log4c_level;
+
+// #define USE_COLOR(level) \
+//   do {if (level >= LOG4C_ERROR) {COLOR_RED_FG;} else {COLOR_GREEN_FG;}} while(0)
 
 #define LOG(level, fmt, ...) \
   if (level >= log4c_level) { \
     fprintf(level >= LOG4C_ERROR ? stderr : stdout, \
             "[%s%5s%s]" " %30s @ %20s#%s%3d%s: " fmt "\n", \
-            COLOR_RED_FG, \
+            LOG_COLOR[level], \
             LOG_NAME[level], \
             COLOR_RESET, \
             __func__, \
@@ -41,7 +52,7 @@ extern int log4c_level;
             __LINE__, \
             COLOR_RESET, \
             ##__VA_ARGS__); \
-  }
+  } \
 
 #define LOG_ALL(fmt, ...)   LOG(LOG4C_ALL, fmt, ##__VA_ARGS__)
 #define LOG_TRACE(fmt, ...) LOG(LOG4C_TRACE, fmt, ##__VA_ARGS__)
