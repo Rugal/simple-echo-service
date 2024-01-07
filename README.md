@@ -1,5 +1,1 @@
-# Rugal Terminal
-
-## Server
-
-## Client
+# Simple echo example with client and server
